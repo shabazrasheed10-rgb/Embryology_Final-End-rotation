@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-Rotation&Final_Embryology_2022-2025</title>
+
+    <style>
+        body {
+            background-color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Tahoma", "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px 30px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: #2D2D2D;
+            color: white;
+            padding: 14px;
+            border-radius: 7px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            margin-bottom: 30px;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #search-input:focus {
+            border-color: #729fcf;
+        }
+
+        /* Container for filtering */
+        #quiz-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 8px;
+                padding: 20px 10px;
+            }
+            .header h5 {
+                margin: 2px 0;
+            }
+        }
+
+        .divider { 
+            border: none; 
+            border-top: 1px solid lightgrey; 
+            margin-bottom: 30px; 
+        }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid lightgrey;
+            padding-bottom: 25px;
+            order: 0; /* Default order */
+            background-color: white;
+        }
+
+        .q-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: black;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .opts {
+            list-style-type: none;
+            padding: 0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .ans-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2e7d32;
+            visibility: hidden;
+            background-color: #f1f8e9;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .q-block.revealed .ans-text {
+            visibility: visible;
+        }
+
+        .ans-btn {
+            background-color: #729fcf;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .ans-btn:hover { 
+            background-color: #5d8ab9; 
+        }
+
+        mark {
+            background-color: yellow;
+            color: black;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        a { 
+            color: #729fcf; 
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header">
+        <h3>End-Rotation&Final</h3>
+        <h5>HDSF-Embryology</h5>
+        <h5>2022-2025</h5>
+        <h5>Created by <a href="https://t.me/Shabaz_Rasheed">Shabaz Rasheed</a></h5>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for questions..." onkeyup="handleSearch()">
+    </div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+
+
+
+const data = [
+
+  {
+    n: 1,
+    q: "During which stage the organ systems are considered to be most susceptible to disruption?",
+    o: [
+      "A. Fetal stage",
+      "B. Germinal stage",
+      "C. Pre-embryonic stage",
+      "D. Embryonic stage",
+      "E. Perinatal stage"
+    ],
+    a: "D"
+  },
+  {
+    n: 2,
+    q: "Somites will develop into:",
+    o: [
+      "A. Neural tube",
+      "B. Skin",
+      "C. Endocardial tubes",
+      "D. Primitive streak",
+      "E. Notochord"
+    ],
+    a: "B"
+  },
+  {
+    n: 3,
+    q: "Trilaminar disc originates from:",
+    o: [
+      "A. Hypoblast",
+      "B. Cytotrophoblast",
+      "C. Epiblast",
+      "D. Extraembryonic mesoderm",
+      "E. Syncytiotrophoblast"
+    ],
+    a: "C"
+  },
+  {
+    n: 4,
+    q: "Hydaitaded complete mole:",
+    o: [
+      "A. Low progesterone",
+      "B. High Alpha-fetoprotein",
+      "C. Normal HCG levels",
+      "D. Absent HCG",
+      "E. High HCG"
+    ],
+    a: "E"
+  },
+  {
+    n: 5,
+    q: "What is formed from the inner cell mass?",
+    o: [
+      "A. Epiblast and hypoblast",
+      "B. Amniotic cavity and yolk sac",
+      "C. Syncytiotrophoblast and cytotrophoblast",
+      "D. Extraembryonic mesoderm only",
+      "E. Trophoblast and blastocoel"
+    ],
+    a: "A"
+  },
+  {
+    n: 6,
+    q: "A pregnant woman knows that she missed a period in which embryonic time?",
+    o: [
+      "A. At the end of the first week",
+      "B. At the end of the second week",
+      "C. At the start of the second week",
+      "D. At the end of the third week",
+      "E. At the start of the third week"
+    ],
+    a: "D"
+  },
+  {
+    n: 7,
+    q: "What hormone is detected in pregnancy tests?",
+    o: [
+      "A. LH (Luteinizing hormone)",
+      "B. HCG (Human chorionic gonadotropin)",
+      "C. FSH (Follicle-stimulating hormone)",
+      "D. GnRH (Gonadotropin-releasing hormone)",
+      "E. Prolactin"
+    ],
+    a: "B"
+  },
+  {
+    n: 8,
+    q: "Which phase of the menstrual cycle is influenced by estrogen?",
+    o: [
+      "A. Luteal phase",
+      "B. Secretory phase",
+      "C. Proliferative phase",
+      "D. Ischemic phase",
+      "E. Menstrual phase"
+    ],
+    a: "C"
+  },
+  {
+    n: 9,
+    q: "What defect is caused by a failure in the closure of the cranial neurospore?",
+    o: [
+      "A. Spina bifida occulta",
+      "B. Meningocele",
+      "C. Rachischisis",
+      "D. Encephalocele",
+      "E. Anencephaly"
+    ],
+    a: "E"
+  },
+  {
+    n: 10,
+    q: "What forms the inner cell mass during the 2nd week of embryonic development?",
+    o: [
+      "A. Blastocyst cavity",
+      "B. Primitive node",
+      "C. Cloacal membrane",
+      "D. Trophoblast",
+      "E. Prechordal plate"
+    ],
+    a: "D"
+  },
+  
+  {
+    n: 11,
+    q: "Capacitation is important for:",
+    o: [
+      "A. Cleavage initiation",
+      "B. Fertilization",
+      "C. Implantation",
+      "D. Acrosome formation",
+      "E. Polyspermy block"
+    ],
+    a: "B"
+  },
+  {
+    n: 12,
+    q: "Which of the following is not derived from the primitive streak during embryonic development?",
+    o: [
+      "A. Amnioblast",
+      "B. Mesoderm",
+      "C. Para axial mesoderm",
+      "D. Lateral plate mesoderm",
+      "E. Extraembryonic mesoderm"
+    ],
+    a: "A"
+  },
+  {
+    n: 13,
+    q: "Which of the following is incorrect according to cleavage process:",
+    o: [
+      "A. Blastomeres become smaller with each division",
+      "B. The zygote remains within the zona pellucida",
+      "C. On day 9, the trophoblastic cells over the embryoblast pole begin to penetrate between the epithelial cells of uterine mucosa",
+      "D. Metabolic activity of the blastomeres increases",
+      "E. Cells undergo rapid mitotic divisions"
+    ],
+    a: "C"
+  },
+  {
+    n: 14,
+    q: "Bilaminar germ disc:",
+    o: [
+      "A. Ectoderm and endoderm",
+      "B. Syncytiotrophoblast and cytotrophoblast",
+      "C. Somatopleure and splanchnopleure",
+      "D. Epiblast and amnioblast",
+      "E. Epiblast and hypoblast"
+    ],
+    a: "E"
+  },
+  {
+    n: 15,
+    q: "When does the primitive streak happens:",
+    o: [
+      "A. First week",
+      "B. Second week",
+      "C. Fourth week",
+      "D. Third week",
+      "E. Fifth week"
+    ],
+    a: "D"
+  },
+  {
+    n: 16,
+    q: "Secondary ovum stopped in which phase:",
+    o: [
+      "A. Metaphase 2, meiosis 2",
+      "B. Prophase 1, meiosis 2",
+      "C. Anaphase 2, meiosis 2",
+      "D. Telophase 1, meiosis 1",
+      "E. Prophase 2, meiosis 2"
+    ],
+    a: "B"
+  },
+  {
+    n: 17,
+    q: "Which of the following is wrong regarding cleavage:",
+    o: [
+      "A. It occurs during the passage through the uterine tube",
+      "B. Compaction occurs at the 8-cell stage",
+      "C. Until 16 cell stage, they form loosely arranged clump",
+      "D. Blastomeres maximize contact with each other",
+      "E. The zona pellucida disappears after the morula stage"
+    ],
+    a: "C"
+  },
+  {
+    n: 18,
+    q: "Secondary yolk sac will develop during intrauterine life on:",
+    o: [
+      "A. Day 9",
+      "B. Day 11",
+      "C. Day 14",
+      "D. Day 12",
+      "E. Day 13"
+    ],
+    a: "E"
+  },
+  {
+    n: 19,
+    q: "When does the amniotic cavity form?",
+    o: [
+      "A. Day 6",
+      "B. Day 10",
+      "C. Day 12",
+      "D. Day 8",
+      "E. Day 14"
+    ],
+    a: "D"
+  },
+  {
+    n: 20,
+    q: "Influence hormone during proliferative phase:",
+    o: [
+      "A. Estrogen",
+      "B. Progesterone",
+      "C. Luteinizing hormone",
+      "D. Human chorionic gonadotropin",
+      "E. Testosterone"
+    ],
+    a: "A"
+  },
+  {
+    n: 21,
+    q: "Formation of chorionic cavity occurs in:",
+    o: [
+      "A. Day 9",
+      "B. Day 11",
+      "C. Day 13",
+      "D. Day 15",
+      "E. Day 17"
+    ],
+    a: "B"
+  },
+  {
+    n: 22,
+    q: "3rd week embryo?",
+    o: [
+      "A. Gastrulation is completed by day 14",
+      "B. The hypoblast becomes the definitive ectoderm",
+      "C. Prenotochordal Cells invaginating in primitive node move cranially in midline till reach prechordal plate",
+      "D. The primitive streak disappears at the start of the 3rd week",
+      "E. The heart begins to beat on day 15"
+    ],
+    a: "C"
+  },
+  {
+    n: 23,
+    q: "Partial mole:",
+    o: [
+      "A. 46XX",
+      "B. 45XO",
+      "C. 47XXY",
+      "D. 46XY",
+      "E. 69XXY"
+    ],
+    a: "E"
+  },
+  {
+    n: 24,
+    q: "Fallopian tube also called?",
+    o: [
+      "A. Ureter",
+      "B. Vas deferens",
+      "C. Endometrium",
+      "D. Oviduct",
+      "E. Myometrium"
+    ],
+    a: "D"
+  },
+  {
+    n: 25,
+    q: "Fertilization normally occur in?",
+    o: [
+      "A. Uterine cavity",
+      "B. Uterine tube",
+      "C. Cervical canal",
+      "D. Ovary",
+      "E. Vagina"
+    ],
+    a: "B"
+  }
+
+];
+const container = document.getElementById('quiz-content');
+
+// Store original HTML to restore after highlighting
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        // We store the searchable text in data attributes for easy access
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">
+                    Answer
+                </button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+
+    blocks.forEach(block => {
+        const qTextElem = block.querySelector('.q-text');
+        const optElems = block.querySelectorAll('li');
+        
+        // Reset content to original before applying new highlights
+        qTextElem.innerHTML = qTextElem.dataset.original;
+        optElems.forEach(li => li.innerHTML = li.dataset.original);
+
+        if (searchTerm.length > 0 && block.dataset.searchText.includes(searchTerm)) {
+            // Move to top
+            block.style.order = "-1";
+            
+            // Highlight Logic
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            
+            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
+            optElems.forEach(li => {
+                li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>');
+            });
+        } else {
+            // Reset position
+            block.style.order = "0";
+        }
+    });
+}
+
+renderQuiz();
+</script>
+
+</body>
+</html>
